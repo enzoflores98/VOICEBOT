@@ -127,7 +127,7 @@ El angulo alfa lo definimos segun diseño, 30° se utilizan para el caso.
 
 Con cuatro ecuaciones para cuatro incognitas, utilizamos Python para resolverla mediante metodos numerico con la libreria fsolve.
 
-## Software
+## Software 💻
 
 Con excepción del control de los motores servos, que se realiza con un código de Arduino, el código del proyecto se encuentra realizado íntegramente con Python.
 
@@ -136,6 +136,17 @@ El lineamiento principal fue resolver las diferentes partes en módulos según f
 <p align="center">
   <img src="https://github.com/user-attachments/assets/d3656247-c3b4-49b3-86f7-290a1840dea6" width="700">
 </p>
+
+### Reconocimiento de voz
+
+El script que controla este codigo es audio.py. Este modulo se consulta desde main.py, su funcion es realizar el procesamiento de la orden dictada por el usuario y devolver al flujo principal una cada de texto de tres palabras: FORMA COLOR DEPOSITO. 
+
+Se utiliza la libreria Pyaudio
+
+
+### Visión Artificial
+
+El script que determina
 
 
 
