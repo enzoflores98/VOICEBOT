@@ -9,7 +9,7 @@
 
 ## Institución 🎓
 
-[Univseridad Nacional de Lomas de Zamora](https://www.unlz.edu.ar/)  
+[Universidad Nacional de Lomas de Zamora](https://www.unlz.edu.ar/)  
 [Facultad de Ingenieria](https://ingenieria.unlz.edu.ar/)
 
 
@@ -19,8 +19,8 @@ VoiceBot es un brazo robótico de cuatro grados de libertad (4GL) el cual, utili
 
 ## Objetivos 🎯
 
-- Creacion de un robot manipulador que sea controlable a través de comandos de voz
-- Integrar visión artificial para el reconocimiento de objetos
+- Creacion de un robot manipulador que sea controlable a través de comandos de voz.
+- Integrar visión artificial para el reconocimiento de objetos.
   
 ## Modo de uso 🚀
 
@@ -54,7 +54,7 @@ Los eslabones del brazo robótico fueron impresos en 3D con el material PLA. Las
 Para completar la maqueta/prototipo; se encuentra un soporte metálico encargado de sostener la luz LED, necesaria para eliminar problemáticas relacionadas con la detección de imagen, y la Webcam encargada de tomar la imagen desde arriba. Todo esto se encuentra apoyado sobre una plataforma de madera de tipo melamina.
 
 ## Cinemática ⚙️
-El codigo para esta resolucion fue realizado en Python y se encuentra en el archivo cinematica.py adjunto en este repositorio.
+El código para esta resolucion fue realizado en Python y se encuentra en el archivo cinematica.py adjunto en este repositorio.
 El problema cinematico fue descompuesto en las siguientes partes:
 
 1. Obtención de las coordenadas XY de cada objeto dentro de la zona de detección.
@@ -141,12 +141,49 @@ El lineamiento principal fue resolver las diferentes partes en módulos según f
 
 El script que controla este codigo es audio.py. Este modulo se consulta desde main.py, su funcion es realizar el procesamiento de la orden dictada por el usuario y devolver al flujo principal una cada de texto de tres palabras: FORMA COLOR DEPOSITO. 
 
-Se utiliza la libreria Pyaudio
+Se utiliza la librería Pyaudio, para el control del flujo de datos de audio y OpenAI para la transcripción y procesamiento de la orden. Un paso fundamental en este paso es el "entendimiento" de la orden dictada por el usuario. La misma se recibe en forma de texto plano y a través de un prompt que utiliza el modelo "gpt-3.5-turbo" se obtiene la salida en forma cadena de texto.
+
+Ejemplo de prompt:
+
+```txt
+Debes responder con exactamente tres cadenas de texto. La primera será una forma, la segunda será un color y la tercera es un número.
+El usuario mencionará o insinuará una forma y un color explícita o implícitamente, además de un número de depósito. Tu tarea será interpretar y responder.
+Tu respuesta tendrá el formato 'FORMA' 'COLOR' 'NUMERO' (el número deberá responderse con un carácter numérico).
+Las formas como respuesta deben ser: 'CILINDRO', 'CUBO', 'ETC'.
+Los colores como respuesta deben ser: 'ROJO', 'NEGRO', 'ETC'.
+Tu respuesta irá directo a los datos de entrada para mover un robot el cual tomará la forma, color y número como instrucción. Por este motivo es importante que solo respondas con el formato indicado.
+Como único caso excepcional en donde responderás algo que sea diferente, es cuando las instrucciones no tengan sentido o no brinden la información suficiente. En ese caso deberás responder 'Instrucción no reconocida'.
+No agregues ningún texto ni carácter adicional.
+Ten en cuenta que la entrada puede no ser del todo explícita y en ese caso deberás entender qué es lo que el usuario quiere hacer.
+```
+
+Los pasos que realiza este script, entonces, son:
+
+1.	Recibe una orden por voz utilizando el micrófono. Esto será un audio en donde se encuentre la frase dictada por el usuario
+2.	La frase recibida será transcripta a texto haciendo uso del modelo “whisper-1” de OpenAI
+3.	El texto será procesado por un prompt predefinido que utilizará el modelo "gpt-3.5-turbo" y devuelve una orden concisa como cadena de caracteres con tres palabras: FORMA COLOR DEPOSITO. Por ejemplo: texto de entrada < ”Quiero mover la pieza de color rojo y con forma cilíndrica al segundo deposito” > devolverá la instrucción < ”CILINDRO ROJO 2” >
+
 
 
 ### Visión Artificial
 
-El script que determina
+El script que se utiliza para el reconocimiento de los objetos es deteccion.py. 
+
+Para este código se utilizó la librería CV2 desarrollada por OpenCV. La delimitación del área de detección se realizó con marcadores aruco:
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/3ec0a26a-6d17-4fc2-bc7d-325de4ee0113" width="600">
+</p>
+
+Su documentación se puede encontrar en el siguiente [link](https://docs.opencv.org/4.x/d5/dae/tutorial_aruco_detection.html)
+
+Estos marcadores son muy utilizados en el campo de la visión artificial dado que se pueden identificar fácilmente con su sistema de codificación y establecer los bordes para brindar un marco de referencia absoluto a la cámara.
+En este modulo del software se realiza la identificación de cada una de las piezas situadas en el área de detección. Esta identificación se constituye en:
+- **Forma**: el algoritmo utilizado identifica la forma del objeto según la cantidad de aristas observadas. Se brinda al código una serie de condicionales para las formas conocidas y se hace una verificación de cuál es la que se cumple.
+- **Color**: esta basada en el modelo HSV que define un color según su matiz, saturación y brillo (valor). El código establece una serie mascaras para determinar un rango predefinido para cada color identificable por nuestro software.
+- **Coordenadas del centro de cada objeto**: dada la naturaleza regular de los objetos con los que se trabaja en el alcance de este proyecto, este se calcula de forma simple considerándolo inscripto en un rectángulo del cual se calcula su centro con base/2 para X y altura/2 para Y.
+
+
 
 
 
