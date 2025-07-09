@@ -53,6 +53,8 @@ Los eslabones del brazo robótico fueron impresos en 3D con el material PLA. Las
 
 Para completar la maqueta/prototipo; se encuentra un soporte metálico encargado de sostener la luz LED, necesaria para eliminar problemáticas relacionadas con la detección de imagen, y la Webcam encargada de tomar la imagen desde arriba. Todo esto se encuentra apoyado sobre una plataforma de madera de tipo melamina.
 
+
+
 ## Cinemática ⚙️
 El código para esta resolucion fue realizado en Python y se encuentra en el archivo cinematica.py adjunto en este repositorio.
 El problema cinematico fue descompuesto en las siguientes partes:
@@ -178,13 +180,44 @@ Para este código se utilizó la librería CV2 desarrollada por OpenCV. La delim
 Su documentación se puede encontrar en el siguiente [link](https://docs.opencv.org/4.x/d5/dae/tutorial_aruco_detection.html)
 
 Estos marcadores son muy utilizados en el campo de la visión artificial dado que se pueden identificar fácilmente con su sistema de codificación y establecer los bordes para brindar un marco de referencia absoluto a la cámara.
+
+Durante el desarrollo de este proyecto nos encontramos algunos desafíos respecto a la vision artificial. Uno de ellos es respecto a las sombras:
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/d26b2941-0db1-4917-be2e-0c8edddc4d47" width="400">
+</p>
+
+Como se aprecia en la imagen; la sombra puede añadir, no solo distorsión a las medidas reales del objeto en cuanto a su centro, sino también lineas que puedan interpretarse como lados del objeto y por lo tanto provocar un error de identificacion de la forma. 
+Para no depender de la iluminacion del ambiente, la resolucion adoptada fue colocar una fuente de LED que proporcione luz continua. 
+
+
+
 En este modulo del software se realiza la identificación de cada una de las piezas situadas en el área de detección. Esta identificación se constituye en:
 - **Forma**: el algoritmo utilizado identifica la forma del objeto según la cantidad de aristas observadas. Se brinda al código una serie de condicionales para las formas conocidas y se hace una verificación de cuál es la que se cumple.
 - **Color**: esta basada en el modelo HSV que define un color según su matiz, saturación y brillo (valor). El código establece una serie mascaras para determinar un rango predefinido para cada color identificable por nuestro software.
 - **Coordenadas del centro de cada objeto**: dada la naturaleza regular de los objetos con los que se trabaja en el alcance de este proyecto, este se calcula de forma simple considerándolo inscripto en un rectángulo del cual se calcula su centro con base/2 para X y altura/2 para Y.
 
+A este script se ingresa desde main.py con una frame capturado por la camara y se espera que devuelva un vector de vectores denominado centros_objetos. Cada vector contenido dentro de centros_objetos tendra la forma (shape, color, cx, cy), que refiera a forma, color, coordenada X y coordenada Y del centro del objeto.
 
+### Script Principal
 
+Este codigo es el encargado de manipular el flujo del programa orquestando las diferentes entradas y salidas de parametros para cada fuente. 
+Además, en este código se realiza el matcheo entre los objetos detectados por la vision artificial y la orden dictada por el usuario. Una vez encontrada la coincidencia entre ambos, se envia la orden al script de cinematica para terminar con el proceso de pick and place.
+
+El diagrama de flujo del programa queda de la siguiente forma:
+1.	Módulo deteccion.py recibe como parámetro la imagen a analizar y devuelve un vector que contiene la información de cada objeto detectado.
+2.	Módulo audio.py, se activa desde main.py y devuelve una cadena de tres palabras: FORMA COLOR DEPOSITO.
+3.	El código main.py realiza una búsqueda para cruzar la información de la orden con el vector de objetos detectados y devuelve una posición XY que es el centro del objeto que se debe tomar.
+4.	El modulo cinemática.py recibe esta coordenada XY y el número de depósito. Realiza las ecuaciones para el calculo de las variables Q1, Q2, Q3 y Q4 que llevan el efector a destino para tomar el objeto y depositarlo en el recipiente correcto. 
+5.	Reinicio del bucle.
+
+## Componentes electrónicos ⚡
+
+-	Arduino UNO R3
+-	4 servomotores MG995R
+-	1 servomotores SG95
+-	Fuente de alimentación 5V 10A
+-	Capacitor electrolítico 3300 µF 16V
 
 
 
