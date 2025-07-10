@@ -1,3 +1,5 @@
+<h1 align="center"> 🗣️ VoiceBot Project 🤖</h1>
+
 <p align="center">
   <img src="https://github.com/user-attachments/assets/d4ab1a18-9311-4dee-971c-c33eea6f4b84" alt="Logo de VoiceBot en Oro" width="300">
 </p>
@@ -13,16 +15,16 @@
 [Facultad de Ingenieria](https://ingenieria.unlz.edu.ar/)
 
 
-<h2 align="center">Introduccion 🤖</h2>
+<h2 align="center">Introducción 🧭</h2>
 
 VoiceBot es un brazo robótico de cuatro grados de libertad (4GL) el cual, utilizando visión artificial y reconocimiento de voz, es capaz tomar piezas distinguidas por forma y color para colocarlas en los depósitos ordenados. Su nombre es debido a que su principal funcionalidad es manejar las funciones de pick and place a través de comandos de voz.
 
-## Objetivos 🎯
+<h2 align="center">Objetivos 🎯</h2>
 
 - Creacion de un robot manipulador que sea controlable a través de comandos de voz.
 - Integrar visión artificial para el reconocimiento de objetos.
   
-## Modo de uso 🚀
+<h2 align="center">Modo de uso 🚀</h2>
 
 ### Preparación
 1.	Colocar las piezas en el área de detección.
@@ -36,7 +38,8 @@ No es requisito que esta instruccion sea en ese orden. Ademas, el algoritmo ser�
 3. Aguardar proceso de Pick & Place.
 4. Realizar nueva orden.
 
-## Caracteristicas generales 📝
+<h2 align="center">Caracteristicas generales 📝</h2>
+
 
 ### Esquema del robot
 
@@ -54,8 +57,8 @@ Los eslabones del brazo robótico fueron impresos en 3D con el material PLA. Las
 Para completar la maqueta/prototipo; se encuentra un soporte metálico encargado de sostener la luz LED, necesaria para eliminar problemáticas relacionadas con la detección de imagen, y la Webcam encargada de tomar la imagen desde arriba. Todo esto se encuentra apoyado sobre una plataforma de madera de tipo melamina.
 
 
+<h2 align="center">Cinemática ⚙️</h2>
 
-## Cinemática ⚙️
 El código para esta resolucion fue realizado en Python y se encuentra en el archivo cinematica.py adjunto en este repositorio.
 El problema cinematico fue descompuesto en las siguientes partes:
 
@@ -127,9 +130,14 @@ $$
 
 El angulo alfa lo definimos segun diseño, 30° se utilizan para el caso.
 
-Con cuatro ecuaciones para cuatro incognitas, utilizamos Python para resolverla mediante metodos numerico con la libreria fsolve.
+Con cuatro ecuaciones para cuatro incognitas, utilizamos Python para resolverla mediante metodos numerico con la libreria fsolve. 
+Si bien la resolucion de este sistema nos puede brindar varias soluciones que matematicamente satisfacen nuestro sistema de ecuaciones, se requieren una serie de restricciones para que los valores sean coherentes con el esquema fisico del robot.
+Asimismo, es necesario una traduccion de los angulos matematicos a los angulos de giro de los servomotores, que dependen de su inicial real. Por este motivo, el codigo cuenta con una funcion especial para traducir este offset.
 
-## Software 💻
+
+
+<h2 align="center">Software 💻</h2>
+
 
 Con excepción del control de los motores servos, que se realiza con un código de Arduino, el código del proyecto se encuentra realizado íntegramente con Python.
 
@@ -211,7 +219,7 @@ El diagrama de flujo del programa queda de la siguiente forma:
 4.	El modulo cinemática.py recibe esta coordenada XY y el número de depósito. Realiza las ecuaciones para el calculo de las variables Q1, Q2, Q3 y Q4 que llevan el efector a destino para tomar el objeto y depositarlo en el recipiente correcto. 
 5.	Reinicio del bucle.
 
-## Componentes electrónicos ⚡
+<h2 align="center">Componentes electrónicos ⚡</h2>
 
 -	Arduino UNO R3
 -	4 servomotores MG995R
