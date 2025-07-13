@@ -38,6 +38,10 @@ No es requisito que esta instruccion sea en ese orden. Ademas, el algoritmo ser�
 3. Aguardar proceso de Pick & Place.
 4. Realizar nueva orden.
 
+<p align="center">
+  <img src="voicebot.gif" width="600"/>
+</p>
+
 📽️ [Ver demo en video](demo.mp4)
 
 
