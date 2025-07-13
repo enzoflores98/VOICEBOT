@@ -38,6 +38,9 @@ No es requisito que esta instruccion sea en ese orden. Ademas, el algoritmo ser�
 3. Aguardar proceso de Pick & Place.
 4. Realizar nueva orden.
 
+📽️ [Ver demo en video](demo.mp4)
+
+
 <h2 align="center">Caracteristicas generales 📝</h2>
 
 
