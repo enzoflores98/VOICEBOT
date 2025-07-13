@@ -33,8 +33,8 @@ VoiceBot es un brazo robótico de cuatro grados de libertad (4GL) el cual, utili
 
 ### Funcionamiento
 1. Ejecutar script main.py.
-2. Presionar la barra espaciadora y dar una orden en voz alta la cual contenga: forma, color de la pieza y deposito al cual se va a llevar el objeto.
-No es requisito que esta instruccion sea en ese orden. Ademas, el algoritmo será capaz de reconocer su intención aun cuando la instruccion no sea concisa
+2. Dar las ordenes en lenguaje natural. Pueden darse varias ordenes de una vez y el robot sera capaz de reconocerlas y ejecutarlas.
+El algoritmo será capaz de reconocer su intención aun cuando la instruccion no sea concisa.
 3. Aguardar proceso de Pick & Place.
 4. Realizar nueva orden.
 
