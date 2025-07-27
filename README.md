@@ -42,7 +42,7 @@ El algoritmo será capaz de reconocer su intención aun cuando la instruccion no
   <img src="voicebot.gif" width="600"/>
 </p>
 
-📽️ [Ver demo en video](demo.mp4)
+📽️ [Ver demo en video](VOICEBOT Funcionamiento.mp4)
 
 
 <h2 align="center">Caracteristicas generales 📝</h2>
