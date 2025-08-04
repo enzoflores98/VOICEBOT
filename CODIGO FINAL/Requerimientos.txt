@@ -1,0 +1,8 @@
+opencv-python
+numpy
+openai
+pyserial
+pyyaml
+Pillow
+pyaudio
+pyttsx3
